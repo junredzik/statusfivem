@@ -24,10 +24,6 @@ const updateStatus = async (channel = null) => {
 
     if (lastStatusIndicator !== online) {
       lastStatusIndicator = online;
-      if (channel) {
-        channel.send(`Status FiveM: ${online ? 'Server Online' : 'Server Offline'}`);
-      }
-
       const targetChannel = await client.channels.fetch('');
       targetChannel.send(activityName);
     }
