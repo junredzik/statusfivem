@@ -13,26 +13,38 @@ client.on('ready', () => {
   setInterval(updateStatus, 1000 * 30);
 });
 
-const updateStatus = async (channel = null) => {
-  try {
-    const body = await request('https://lambda.fivem.net');
-    const online = JSON.stringify(body).includes("CleanAndLegit");
+const updateStatus = (channel = null) => {
+  request('https://lambda.fivem.net', (error, res, body) => {
+    if (!error) {
+      const text = JSON.stringify(body);
+      const online = text.includes("CleanAndLegit");
+  
+      console.log("Sprawdzam status FiveM: " + (online ? 'online' : 'offline'));
 
-    console.log(`Sprawdzam status FiveM: ${online ? 'online' : 'offline'}`);
-
-    const activityName = online ? '``🟢 FiveM``' : '``🔴 FiveM``';
-
-    if (lastStatusIndicator !== online) {
-      lastStatusIndicator = online;
-      const targetChannel = await client.channels.fetch('');
-      targetChannel.send(activityName);
+      if (!online) {
+        activityName = '``🔴 FiveM``';
+      } else {
+        activityName = '``🟢 FiveM``';
+      }
+      if (lastStatusIndicator !== online) {
+        lastStatusIndicator = online;
+        if (channel) {
+          channel.send(`Status FiveM: ${online ? 'Server Online' : 'Server Offline'}`);
+        }
+        client.channels
+          .fetch('')
+          .then((channel) => {
+            channel.send(`${activityName}`);
+          })
+          .catch(console.error);
+      }
+    } else {
+      console.log('Error: ', error);
+      if (channel) {
+        channel.send('Nie udało się pobrać statusu.');
+      }
     }
-  } catch (error) {
-    console.log('Error: ', error);
-    if (channel) {
-      channel.send('Nie udało się pobrać statusu.');
-    }
-  }
+  });
 };
 
 const tokenik = '';
