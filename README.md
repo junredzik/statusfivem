@@ -31,11 +31,11 @@ A simple bot to show the status of FiveM whether, for example, you can connect t
 
 ### Installation
 1. clone the repository to your computer using the following command:
-``bash
+```bash
 git clone https://github.com/junredzik/statusfivem.git
 ```
 2. navigate to the folder
-``bash
+```bash
 cd Name-Folder
 ```
 3. open a terminal in the project folder
