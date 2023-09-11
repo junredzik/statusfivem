@@ -40,15 +40,15 @@ cd Name-Folder
 ```
 3. open a terminal in the project folder
 4. enter the following command to install all modules
-``bash
-npm and 
+```bash
+npm i 
 ```
 
 5. in the `config.js` file, complete the bot token as well as the channel ID.
-``bash
+```bash
     token: '',
     channelId: '', 
-```
+``` 
 
 ![Image 1](https://i.imgur.com/nFqVaKG.png)
 ![Image 2](https://i.imgur.com/KYvgS1f.png)
